@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vnext.mapper.FunctionMapper" >
+  <resultMap id="BaseResultMap" type="com.vnext.pojo.Function" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="DATA_TYPE" property="dataType" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="INIT_VALUE" property="initValue" jdbcType="DECIMAL" />
+    <result column="NORM_VALUE" property="normValue" jdbcType="DECIMAL" />
+    <result column="MIN_RV" property="minRv" jdbcType="DECIMAL" />
+    <result column="MAX_RV" property="maxRv" jdbcType="DECIMAL" />
+    <result column="RATIO" property="ratio" jdbcType="DECIMAL" />
+    <result column="IS_ALARM" property="isAlarm" jdbcType="INTEGER" />
+    <result column="IS_CUMULATIVE" property="isCumulative" jdbcType="INTEGER" />
+    <result column="IS_PARAM_SETTING" property="isParamSetting" jdbcType="INTEGER" />
+    <result column="IS_RESPONSIBLE" property="isResponsible" jdbcType="INTEGER" />
+    <result column="IS_PARAM_STATUS" property="isParamStatus" jdbcType="INTEGER" />
+    <result column="IS_RANGEABLE" property="isRangeable" jdbcType="INTEGER" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

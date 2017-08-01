@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- 自动生成代码命令: mvn mybatis-generator:generate -->
+    <properties resource="application.properties"/>
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        
+        <!-- 生成的javabean中,字段注释中文乱码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.vnext.core.MyMapper"/>
+        </plugin>
+
+        <jdbcConnection driverClass="${druid.driver-class}"
+                        connectionURL="${druid.url}"
+                        userId="${druid.username}"
+                        password="${druid.password}">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.vnext.pojo" targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+
+        <javaClientGenerator targetPackage="com.vnext.mapper" targetProject="src/main/java" type="XMLMAPPER"/>
+
+
+		<!-- <table tableName="%">
+			mysql 配置
+			<generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+			oracle 配置
+            <generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>
+		</table> -->
+		
+		<!-- 指定数据库表 -->
+		<table schema="" tableName="function"></table>
+		<table schema="" tableName="sys_user"></table>
+
+    </context>
+</generatorConfiguration>
