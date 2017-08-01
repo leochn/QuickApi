@@ -21,7 +21,7 @@ public class SysUserController {
     public Result detail(@PathVariable String id) {
     	System.out.println("id=============" + id);
         SysUser sysUser = sysUserService.queryById(id);
-        int b = 10 / 0;
+        //int b = 10 / 0;
         return ResultGenerator.genSuccessResult(sysUser);
     }
 

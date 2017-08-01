@@ -14,6 +14,7 @@ import com.vnext.core.ServiceException;
 
 import tk.mybatis.mapper.common.Mapper;
 //import tk.mybatis.mapper.common.Mapper;
+//import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
 
 public abstract class BaseService<T> {

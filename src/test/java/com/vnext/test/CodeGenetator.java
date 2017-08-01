@@ -66,7 +66,7 @@ public class CodeGenetator {
     }
     
     public static void main(String[] args) {
-        genCode("function");
+        //genCode("function");
         genCode("sys_user");
         //genCode("admin_role");
         //genCode("输入表名","输入自定义Model名称");
@@ -90,9 +90,9 @@ public class CodeGenetator {
      * @param modelName 自定义的 Model 名称
      */
     public static void genCode(String tableName, String modelName) {
-        //genModelAndMapper(tableName, modelName);
+        genModelAndMapper(tableName, modelName);
         //genService(tableName, modelName);
-        genController(tableName, modelName);
+        //genController(tableName, modelName);
     }
     
     
@@ -117,7 +117,7 @@ public class CodeGenetator {
 
         JavaModelGeneratorConfiguration javaModelGeneratorConfiguration = new JavaModelGeneratorConfiguration();
         javaModelGeneratorConfiguration.setTargetProject(PROJECT_PATH + JAVA_PATH);
-        javaModelGeneratorConfiguration.setTargetPackage(MODEL_PACKAGE);
+        javaModelGeneratorConfiguration.setTargetPackage(POJO_PACKAGE);
         context.setJavaModelGeneratorConfiguration(javaModelGeneratorConfiguration);
 
         SqlMapGeneratorConfiguration sqlMapGeneratorConfiguration = new SqlMapGeneratorConfiguration();
@@ -180,14 +180,6 @@ public class CodeGenetator {
             }
             cfg.getTemplate("service.ftl").process(data,new FileWriter(file));
             System.out.println(modelNameUpperCamel + "Service.java 生成成功");
-
-//            File file1 = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_SERVICE_IMPL + modelNameUpperCamel + "ServiceImpl.java");
-//            if (!file1.getParentFile().exists()) {
-//                file1.getParentFile().mkdirs();
-//            }
-//            cfg.getTemplate("service-impl.ftl").process(data,
-//                    new FileWriter(file1));
-//            System.out.println(modelNameUpperCamel + "ServiceImpl.java 生成成功");
         } catch (Exception e) {
             throw new RuntimeException("生成Service失败", e);
         }
