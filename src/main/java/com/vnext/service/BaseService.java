@@ -1,20 +1,13 @@
 package com.vnext.service;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.vnext.core.ServiceException;
-
 import tk.mybatis.mapper.common.Mapper;
-//import tk.mybatis.mapper.common.Mapper;
-//import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
 
 public abstract class BaseService<T> {
@@ -111,10 +104,10 @@ public abstract class BaseService<T> {
 	 * @param record
 	 * @return
 	 */
-	public PageInfo<T> queryPageListByWhereAndOrderBy(T record,Integer page, Integer rows, String sort, String sortOrder) {
+	public PageInfo<T> queryPageListByWhereAndOrderBy(T record,Integer page, Integer rows, String sortField, String sortOrder) {
 		// 需要对排序的javabean属性进行解析,解析成数据库字段
 		//String sortField = CamelToUnderlineUtil.underlineToCamel(sort);
-		String sortField = sort;
+		//String sortField = sort;
 		// 设置分页条件
 		PageHelper.startPage(page, rows);
 		Example example = new Example(record.getClass());

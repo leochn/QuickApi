@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 public class Result {
     private int code;
     private String message;
+    private long total;
     private Object data;
 
     public Result setCode(ResultCode resultCode) {
@@ -32,8 +33,17 @@ public class Result {
         this.message = message;
         return this;
     }
+    
+	public long getTotal() {
+		return total;
+	}
 
-    public Object getData() {
+	public Result setTotal(long total) {
+		this.total = total;
+		return this;
+	}
+
+	public Object getData() {
         return data;
     }
 

@@ -66,9 +66,7 @@ public class CodeGenetator {
     }
     
     public static void main(String[] args) {
-        //genCode("function");
         genCode("sys_user");
-        //genCode("admin_role");
         //genCode("输入表名","输入自定义Model名称");
 	}
     
@@ -90,9 +88,9 @@ public class CodeGenetator {
      * @param modelName 自定义的 Model 名称
      */
     public static void genCode(String tableName, String modelName) {
-        genModelAndMapper(tableName, modelName);
+        //genModelAndMapper(tableName, modelName);
         //genService(tableName, modelName);
-        //genController(tableName, modelName);
+        genController(tableName, modelName);
     }
     
     
