@@ -1,8 +1,7 @@
 package com.vnext.config;
 
-
 import java.io.IOException;
-import java.nio.charset.Charset;
+//import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.HttpMessageConverter;
+//import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,9 +27,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+/*import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;*/
 import com.vnext.core.Result;
 import com.vnext.core.ResultCode;
 import com.vnext.core.ServiceException;
@@ -46,18 +45,17 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     private String env;//当前激活的配置文件
 
     //使用阿里 FastJson 作为JSON MessageConverter
-    @Override
+    /*@Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter4 converter = new FastJsonHttpMessageConverter4();
         FastJsonConfig config = new FastJsonConfig();
-        config.setSerializerFeatures(SerializerFeature.WriteMapNullValue,//保留空的字段
-                SerializerFeature.WriteNullStringAsEmpty,//String null -> ""
-                SerializerFeature.WriteNullNumberAsZero);//Number null -> 0
+        config.setSerializerFeatures(SerializerFeature.WriteMapNullValue,  //保留空的字段
+                SerializerFeature.WriteNullStringAsEmpty,                  //String null -> ""
+                SerializerFeature.WriteNullNumberAsZero);                  //Number null -> 0
         converter.setFastJsonConfig(config);
         converter.setDefaultCharset(Charset.forName("UTF-8"));
         converters.add(converter);
-    }
-
+    }*/
 
     //统一异常处理
     @Override
@@ -65,7 +63,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         exceptionResolvers.add(new HandlerExceptionResolver() {
             public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) {
                 Result result = new Result();
-                if (e instanceof ServiceException) {//业务失败的异常，如“账号或密码错误”
+                if (e instanceof ServiceException) {     //业务失败的异常，如“账号或密码错误”
                     result.setCode(ResultCode.FAIL).setMessage(e.getMessage());
                     logger.info(e.getMessage());
                 } else if (e instanceof NoHandlerFoundException) {

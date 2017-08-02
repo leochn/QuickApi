@@ -12,15 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
-* Created by CodeGenerator on 2017/08/02.
-*/
+ * Created by CodeGenerator on 2017/08/02.
+ */
 @RestController
 @RequestMapping("/api")
 public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;  
-
 
     /**
      * 分页获取数据,并根据字段排序
@@ -84,6 +83,23 @@ public class SysUserController {
 	}
 	
 	/**
+	 * 根据某个字段值获取一条数据
+	 * @param fieldName
+	 * @param value
+	 * @return
+	 */
+	@GetMapping("/sysUser/{fieldName}/{value}")
+	public Result queryByFieldName(
+			@PathVariable("fieldName") String fieldName,
+			@PathVariable("value") String value) {
+		SysUser record = this.sysUserService.queryByFieldName(fieldName, value);
+		if (record != null) {
+			return ResultGenerator.genSuccessResult(1, record);
+		}
+		return ResultGenerator.genFailResult();
+	}
+	
+	/**
 	 * 更新数据
 	 * @param id
 	 * @param record
@@ -111,7 +127,5 @@ public class SysUserController {
 		}
 		return ResultGenerator.genFailResult();
 	}
-    
-
 
 }

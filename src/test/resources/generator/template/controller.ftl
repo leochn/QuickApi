@@ -12,15 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
-* Created by ${author} on ${date}.
-*/
+ * Created by ${author} on ${date}.
+ */
 @RestController
 @RequestMapping("/api")
 public class ${modelNameUpperCamel}Controller {
 
     @Autowired
     private ${modelNameUpperCamel}Service ${modelNameLowerCamel}Service;  
-
 
     /**
      * 分页获取数据,并根据字段排序
@@ -57,7 +56,7 @@ public class ${modelNameUpperCamel}Controller {
 	}
 	
 	/**
-     * 获取单个数据
+     * 根据id,获取单个数据
      * @param id
      * @return
      */
@@ -69,6 +68,23 @@ public class ${modelNameUpperCamel}Controller {
 		}
         return ResultGenerator.genNotFoundResult();
     }
+    
+    /**
+	 * 根据某个字段值获取一条数据
+	 * @param fieldName
+	 * @param value
+	 * @return
+	 */
+	@GetMapping("/${modelNameLowerCamel}/{fieldName}/{value}")
+	public Result queryByFieldName(
+			@PathVariable("fieldName") String fieldName,
+			@PathVariable("value") String value) {
+		${modelNameUpperCamel} record = this.${modelNameLowerCamel}Service.queryByFieldName(fieldName, value);
+		if (record != null) {
+			return ResultGenerator.genSuccessResult(1, record);
+		}
+		return ResultGenerator.genFailResult();
+	}
     
     /**
 	 * 新增一条信息
@@ -111,7 +127,5 @@ public class ${modelNameUpperCamel}Controller {
 		}
 		return ResultGenerator.genFailResult();
 	}
-    
-
 
 }
