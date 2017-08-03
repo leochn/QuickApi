@@ -41,6 +41,7 @@ import com.vnext.core.ServiceException;
 public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
     private final Logger logger = LoggerFactory.getLogger(WebMvcConfigurer.class);
+    
     @Value("${spring.profiles.active}")
     private String env;//当前激活的配置文件
 

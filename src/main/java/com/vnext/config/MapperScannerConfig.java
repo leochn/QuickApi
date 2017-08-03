@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.vnext.core.ProjectConstant;
+
 @Configuration
 @AutoConfigureAfter(MyBatisConfig.class) //保证在MyBatisConfig实例化之后再实例化该类
 public class MapperScannerConfig {
@@ -12,7 +14,7 @@ public class MapperScannerConfig {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("com.vnext.mapper");
+        mapperScannerConfigurer.setBasePackage(ProjectConstant.MAPPER_PACKAGE);
         return mapperScannerConfigurer;
     }
 }

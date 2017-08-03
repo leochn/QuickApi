@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+import com.vnext.core.ProjectConstant;
+
 @Configuration
 public class MyBatisConfig {
 	@Autowired
@@ -33,7 +35,7 @@ public class MyBatisConfig {
 			e.printStackTrace();
 		}
         // 设置别名包
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.vnext.pojo");
+        sqlSessionFactoryBean.setTypeAliasesPackage(ProjectConstant.POJO_PACKAGE);
         return sqlSessionFactoryBean;
     }
 }

@@ -1,4 +1,4 @@
-package com.vnext.service;
+package com.vnext.core;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -10,12 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.vnext.core.ServiceException;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
-
-public abstract class BaseService<T> {
+/**
+ * BaseService的源代码(类名不同),防止com.vnetx.service.BaseService被误删除
+ * @author lij01
+ *
+ * @param <T>
+ */
+public abstract class BaseServiceBak<T> {
 	
 	@Autowired
 	private Mapper<T> mapper;
@@ -23,7 +27,7 @@ public abstract class BaseService<T> {
 	private Class<T> modelClass;    // 当前泛型真实类型的Class
 	
 	@SuppressWarnings("unchecked")
-	public BaseService() {
+	public BaseServiceBak() {
         ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
         modelClass = (Class<T>) pt.getActualTypeArguments()[0];
     }
@@ -101,7 +105,7 @@ public abstract class BaseService<T> {
 	}
 	
 	/**
-	 * 分页查询,并根据字段排序
+	 * 分页排序查询
 	 * 
 	 * @param page
 	 * @param rows
@@ -117,7 +121,6 @@ public abstract class BaseService<T> {
 		Example example = new Example(record.getClass());
 		if (StringUtils.isNotEmpty(sortField) && StringUtils.isNotEmpty(sortOrder)) {
 			String orderBy = sortField + " " + sortOrder;
-			//String orderBy = sortField + " " + sortOrder + ",ID_DEVICE ASC"; // 还可以设置多字段排序,先按sortField字段排序,若相同,再按ID_DEVICE字段排序.
 			example.setOrderByClause(orderBy); // 设置排序信息
 		}
 		List<T> list = this.mapper.selectByExample(example);

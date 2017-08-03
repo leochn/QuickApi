@@ -1,6 +1,7 @@
 package com.vnext.test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.MyBatisGenerator;
@@ -24,6 +26,7 @@ import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.config.SqlMapGeneratorConfiguration;
 import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import org.springframework.jdbc.support.JdbcUtils;
 
 import com.google.common.base.CaseFormat;
 
@@ -32,12 +35,28 @@ import freemarker.template.TemplateExceptionHandler;
 import static com.vnext.core.ProjectConstant.*;
 
 public class CodeGenetator {
-	//JDBC配置，请修改为你项目的实际配置
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/vue_dashboard";
-    private static final String JDBC_USERNAME = "root";
-    private static final String JDBC_PASSWORD = "root";
-    private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
-
+	  
+	//JDBC配置
+    private static String JDBC_URL = null;
+    private static String JDBC_USERNAME = null;
+    private static String JDBC_PASSWORD = null;
+    private static String JDBC_DIVER_CLASS_NAME = null;
+ 
+    static {
+        String path = JdbcUtils.class.getClassLoader().getResource("application.properties").getPath();
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileInputStream(path));
+            JDBC_URL = properties.getProperty("druid.url");
+            JDBC_USERNAME = properties.getProperty("druid.username");
+            JDBC_PASSWORD = properties.getProperty("druid.password");
+            JDBC_DIVER_CLASS_NAME = properties.getProperty("druid.driver-class");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExceptionInInitializerError(e);
+        }
+    }
+	
     private static final String PROJECT_PATH = System.getProperty("user.dir");//项目在硬盘上的基础路径
     private static final String TEMPLATE_FILE_PATH = PROJECT_PATH + "/src/test/resources/generator/template";//模板位置
 
@@ -51,25 +70,13 @@ public class CodeGenetator {
     private static final String AUTHOR = "CodeGenerator";//@author
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
     
-    private static String tableNameConvertMappingPath(String tableName) {
-        tableName = tableName.toLowerCase();//兼容使用大写的表名
-        return "/" + (tableName.contains("_") ? tableName.replaceAll("_", "/") : tableName);
-    }
-
-    private static String modelNameConvertMappingPath(String modelName) {
-        String tableName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, modelName);
-        return tableNameConvertMappingPath(tableName);
-    }
-
-    private static String packageConvertPath(String packageName) {
-        return String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
-    }
     
     public static void main(String[] args) {
         genCode("sys_user");
+        //genCode("service_values_today");
         //genCode("输入表名","输入自定义Model名称");
-	}
-    
+	}   
+        
     /**
      * 通过数据表名称生成代码，Model 名称通过解析数据表名称获得，下划线转大驼峰的形式。
      * 如输入表名称 "t_user_detail" 将生成 TUserDetail、TUserDetailMapper、TUserDetailService ...
@@ -88,8 +95,8 @@ public class CodeGenetator {
      * @param modelName 自定义的 Model 名称
      */
     public static void genCode(String tableName, String modelName) {
-        //genModelAndMapper(tableName, modelName);
-        //genService(tableName, modelName);
+        genModelAndMapper(tableName, modelName);
+        genService(tableName, modelName);
         genController(tableName, modelName);
     }
     
@@ -209,7 +216,21 @@ public class CodeGenetator {
         }
 
     }
+    
+    private static String tableNameConvertMappingPath(String tableName) {
+        tableName = tableName.toLowerCase();//兼容使用大写的表名
+        return "/" + (tableName.contains("_") ? tableName.replaceAll("_", "/") : tableName);
+    }
 
+    private static String modelNameConvertMappingPath(String modelName) {
+        String tableName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, modelName);
+        return tableNameConvertMappingPath(tableName);
+    }
+
+    private static String packageConvertPath(String packageName) {
+        return String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
+    }
+    
     private static freemarker.template.Configuration getConfiguration() throws IOException {
         freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_23);
         cfg.setDirectoryForTemplateLoading(new File(TEMPLATE_FILE_PATH));
