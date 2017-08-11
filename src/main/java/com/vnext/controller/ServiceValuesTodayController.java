@@ -3,8 +3,8 @@ package com.vnext.controller;
 import com.github.pagehelper.PageInfo;
 import com.vnext.core.Result;
 import com.vnext.core.ResultGenerator;
-import com.vnext.pojo.SysUser;
-import com.vnext.service.SysUserService;
+import com.vnext.pojo.ServiceValuesToday;
+import com.vnext.service.ServiceValuesTodayService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Created by CodeGenerator on 2017/08/03.
+ * Created by CodeGenerator on 2017/08/08.
  */
 @RestController
 @RequestMapping("/api")
-public class SysUserController {
+public class ServiceValuesTodayController {
 
     @Autowired
-    private SysUserService sysUserService;  
+    private ServiceValuesTodayService serviceValuesTodayService;  
     
     /**
      * 分页获取数据
@@ -35,11 +35,11 @@ public class SysUserController {
      * @param rows
      * @return
      */
-    @GetMapping("/sysUserList")
+    @GetMapping("/serviceValuesTodayList")
     public Result getPageList(
     		@RequestParam(value = "page") Integer page,
 			@RequestParam(value = "rows") Integer rows) {
-    	PageInfo<SysUser> pageInfo = this.sysUserService.queryPageListByWhere(new SysUser(), page, rows);
+    	PageInfo<ServiceValuesToday> pageInfo = this.serviceValuesTodayService.queryPageListByWhere(new ServiceValuesToday(), page, rows);
 		if (pageInfo != null) {
 			return ResultGenerator.genSuccessResult(pageInfo.getTotal(), pageInfo.getList());
 		}
@@ -54,13 +54,13 @@ public class SysUserController {
      * @param sortOrder
      * @return
      */
-    @GetMapping("/sysUserListOrderBy")
+    @GetMapping("/serviceValuesTodayListOrderBy")
     public Result getPageListAndOrderBy(
     		@RequestParam(value = "page") Integer page,
 			@RequestParam(value = "rows") Integer rows,
 			@RequestParam(value = "sortField", defaultValue = "ID") String sortField,
 			@RequestParam(value = "sortOrder", defaultValue = "asc") String sortOrder) {
-    	PageInfo<SysUser> pageInfo = this.sysUserService.queryPageListByWhereAndOrderBy(new SysUser(), page, rows, sortField, sortOrder);
+    	PageInfo<ServiceValuesToday> pageInfo = this.serviceValuesTodayService.queryPageListByWhereAndOrderBy(new ServiceValuesToday(), page, rows, sortField, sortOrder);
 		if (pageInfo != null) {
 			return ResultGenerator.genSuccessResult(pageInfo.getTotal(), pageInfo.getList());
 		}
@@ -71,9 +71,9 @@ public class SysUserController {
      * 获取全部数据
      * @return
      */
-	@GetMapping("/sysUsers")
+	@GetMapping("/serviceValuesTodays")
 	public Result all() {
-		List<SysUser> list = this.sysUserService.queryAll();
+		List<ServiceValuesToday> list = this.serviceValuesTodayService.queryAll();
 		if (list != null) {
 			return ResultGenerator.genSuccessResult(list.size(), list);
 		}
@@ -85,9 +85,9 @@ public class SysUserController {
      * @param id
      * @return
      */
-    @GetMapping("/sysUser/{id}")
+    @GetMapping("/serviceValuesToday/{id}")
     public Result detail(@PathVariable String id) {
-        SysUser record = this.sysUserService.queryById(id);
+        ServiceValuesToday record = this.serviceValuesTodayService.queryById(id);
         if (record != null) {
         	return ResultGenerator.genSuccessResult(1,record);
 		}
@@ -100,11 +100,11 @@ public class SysUserController {
 	 * @param value
 	 * @return
 	 */
-	@GetMapping("/sysUser/{fieldName}/{value}")
+	@GetMapping("/serviceValuesToday/{fieldName}/{value}")
 	public Result queryByFieldName(
 			@PathVariable("fieldName") String fieldName,
 			@PathVariable("value") String value) {
-		SysUser record = this.sysUserService.queryByFieldName(fieldName, value);
+		ServiceValuesToday record = this.serviceValuesTodayService.queryByFieldName(fieldName, value);
 		if (record != null) {
 			return ResultGenerator.genSuccessResult(1, record);
 		}
@@ -115,9 +115,9 @@ public class SysUserController {
 	 * 新增一条信息
 	 * @return
 	 */
-	@PostMapping("/sysUser")
-	public Result add(@RequestBody SysUser record) {
-		Integer num = this.sysUserService.saveSelective(record);
+	@PostMapping("/serviceValuesToday")
+	public Result add(@RequestBody ServiceValuesToday record) {
+		Integer num = this.serviceValuesTodayService.saveSelective(record);
 		if (num == 1) {
 			return ResultGenerator.genSuccessResult();
 		}
@@ -130,9 +130,9 @@ public class SysUserController {
 	 * @param record
 	 * @return
 	 */
-	@PutMapping("/sysUser/{id}")
-	public Result update(@PathVariable("id") String id, @RequestBody SysUser record) {
-		Integer num = this.sysUserService.updateSelective(record);
+	@PutMapping("/serviceValuesToday/{id}")
+	public Result update(@PathVariable("id") String id, @RequestBody ServiceValuesToday record) {
+		Integer num = this.serviceValuesTodayService.updateSelective(record);
 		if (num == 1) {
 			return ResultGenerator.genSuccessResult();
 		}
@@ -146,7 +146,7 @@ public class SysUserController {
 	 */
 	@DeleteMapping("/sysUser/{id}")
 	public Result delete(@PathVariable("id") String id) {
-		Integer num = this.sysUserService.deleteById(id);
+		Integer num = this.serviceValuesTodayService.deleteById(id);
 		if (num == 1) {
 			return ResultGenerator.genSuccessResult();
 		}

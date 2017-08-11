@@ -144,7 +144,7 @@ public class ${modelNameUpperCamel}Controller {
 	 * @param id
 	 * @return
 	 */
-	@DeleteMapping("/sysUser/{id}")
+	@DeleteMapping("/${modelNameLowerCamel}/{id}")
 	public Result delete(@PathVariable("id") String id) {
 		Integer num = this.${modelNameLowerCamel}Service.deleteById(id);
 		if (num == 1) {

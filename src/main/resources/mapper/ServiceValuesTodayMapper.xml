@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vnext.mapper.ServiceValuesTodayMapper">
+  <resultMap id="BaseResultMap" type="com.vnext.pojo.ServiceValuesToday">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID_DEVICE" jdbcType="VARCHAR" property="idDevice" />
+    <result column="ID_SERVICE" jdbcType="VARCHAR" property="idService" />
+    <result column="TAG_NAME" jdbcType="VARCHAR" property="tagName" />
+    <result column="DATE_TIME" jdbcType="TIMESTAMP" property="dateTime" />
+    <result column="PV" jdbcType="REAL" property="pv" />
+    <result column="EU" jdbcType="VARCHAR" property="eu" />
+  </resultMap>
+</mapper>
